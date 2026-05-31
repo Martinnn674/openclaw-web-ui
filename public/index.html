@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Claw Space</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="workspace-shell">
+      <aside class="sidebar hermes-sidebar" aria-label="Workspace navigation">
+        <div class="hermes-sidebar-header">
+          <button class="hermes-brand" data-tab="dashboard" type="button">
+            <img src="/assets/claw-space-logo.svg" alt="Claw Space" class="hermes-avatar">
+            <span>Claw Space</span>
+          </button>
+          <button id="collapseSidebarBtn" class="hermes-icon-btn" type="button" title="Collapse sidebar" aria-label="Collapse sidebar">‹</button>
+        </div>
+
+        <button id="openSearchBtn" class="nav-item hermes-search" type="button">
+          <span class="nav-icon">⌕</span><span>Search</span>
+        </button>
+
+        <div class="sidebar-scroll">
+          <div class="section-label">Main</div>
+          <nav class="nav-stack">
+          <button class="nav-item is-active" data-tab="dashboard" type="button">
+            <span class="nav-icon">◫</span><span>Dashboard</span>
+          </button>
+          <button class="nav-item" data-tab="chat" type="button">
+            <span class="nav-icon">☰</span><span>Chat</span>
+          </button>
+          <button class="nav-item" data-tab="swarm" type="button">
+            <span class="nav-icon">◎</span><span>Swarm</span>
+          </button>
+          <button class="nav-item" data-tab="tasks" type="button">
+            <span class="nav-icon">☑</span><span>Kanban</span>
+          </button>
+          </nav>
+
+          <div class="section-label">Knowledge</div>
+          <nav class="nav-stack">
+            <button class="nav-item" data-tab="logs" type="button">
+              <span class="nav-icon">◇</span><span>Memory</span>
+            </button>
+            <button class="nav-item" data-tab="settings" type="button">
+              <span class="nav-icon">✣</span><span>Agent Settings</span>
+            </button>
+          </nav>
+
+          <details class="sidebar-session-menu" open>
+            <summary><span>Sessions</span><span id="sidebarSessionCount">0</span></summary>
+            <div id="sidebarSessions" class="sidebar-sessions"></div>
+          </details>
+        </div>
+
+        <div class="sidebar-footer hermes-profile-footer">
+          <button class="profile-trigger" type="button">
+            <span class="profile-avatar">O</span>
+            <div>
+              <strong>Maintainer</strong>
+              <span><span id="healthDot" class="dot"></span><span id="healthText">Checking</span></span>
+            </div>
+          </button>
+          <div class="footer-actions">
+            <button id="openAppSettingsBtn" class="hermes-icon-btn" type="button" title="Settings" aria-label="Settings">⚙</button>
+          </div>
+        </div>
+      </aside>
+
+      <main class="workspace-main">
+        <header class="mobile-header">
+          <div class="brand-block">
+            <div class="brand-mark"><img src="/assets/claw-space-logo.svg" alt="Claw Space"></div>
+            <div>
+              <p class="eyebrow">Workspace</p>
+              <h1>Claw Space</h1>
+            </div>
+          </div>
+          <span id="mobileHealth" class="mini-status">...</span>
+        </header>
+
+        <section id="tab-dashboard" class="panel is-active">
+          <div class="hermes-dashboard">
+            <div class="dashboard-hero">
+              <img src="/assets/claw-space-logo.svg" alt="Claw Space">
+              <p>CLAW SPACE</p>
+            </div>
+            <div class="dashboard-actions">
+              <button data-tab="chat" type="button"><span>☰</span><strong>Chat</strong></button>
+              <button data-tab="swarm" type="button"><span>◎</span><strong>Swarm</strong></button>
+              <button data-tab="settings" type="button"><span>✣</span><strong>Agent Settings</strong></button>
+              <button id="refreshDashboardBtn" type="button"><span>↻</span><strong>Refresh</strong></button>
+            </div>
+            <div id="metricGrid" class="metric-grid dashboard-metrics"></div>
+            <div class="dashboard-grid hermes-dashboard-grid">
+              <article class="workspace-card dashboard-activity">
+                <div class="card-head">
+                  <div>
+                    <p class="eyebrow">Activity</p>
+                    <h3>Agent Team</h3>
+                  </div>
+                  <span id="agentCountBadge" class="pill">0 agents</span>
+                </div>
+                <div id="dashboardAgents" class="mini-list"></div>
+              </article>
+              <article class="workspace-card">
+                <div class="card-head">
+                  <div>
+                    <p class="eyebrow">Recent Sessions</p>
+                    <h3>Memory</h3>
+                  </div>
+                  <button class="ghost-btn" data-jump="logs" type="button">View all</button>
+                </div>
+                <div id="recentSessions" class="mini-list"></div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="tab-chat" class="panel chat-panel">
+          <article class="chat-window">
+            <header class="chat-window-head">
+              <div>
+                <p class="eyebrow">Chat</p>
+                <h2 id="subagentChatTitle">Atlas</h2>
+                <p id="chatAgentMeta" class="muted">Select an agent and start talking.</p>
+              </div>
+              <button id="newChatBtn" class="ghost-btn chat-new-btn" type="button">New Chat</button>
+            </header>
+            <div id="agentMessages" class="chat-log" aria-live="polite"></div>
+            <form id="agentForm" class="composer chat-composer">
+              <div id="chatAttachmentTray" class="chat-attachment-tray is-empty" aria-live="polite"></div>
+              <textarea id="agentInput" rows="2" placeholder="Message Atlas"></textarea>
+              <div class="composer-actions">
+                <input id="agentFileInput" class="visually-hidden" type="file" multiple>
+                <button id="attachFileBtn" class="ghost-btn attach-btn" type="button" title="Attach files" aria-label="Attach files">📎</button>
+                <select id="agentSelect" class="composer-agent-select" aria-label="Chat agent"></select>
+                <button type="submit">Send</button>
+              </div>
+            </form>
+            <div id="chatSuggestions" class="chat-suggestions" aria-label="Suggested prompts">
+              <button type="button" data-chat-suggestion="Help me plan the next OpenClaw workspace improvements."><span>✣</span> Plan</button>
+              <button type="button" data-chat-suggestion="Review the latest session logs and summarize the important issues."><span>◇</span> Review</button>
+              <button type="button" data-chat-suggestion="Help me debug a UI issue step by step."><span>☰</span> Code</button>
+              <button type="button" data-chat-suggestion="Turn this rough idea into a clean task list."><span>✎</span> Write</button>
+            </div>
+          </article>
+        </section>
+
+        <section id="tab-swarm" class="panel swarm-panel">
+          <div id="swarmSurface" class="swarm-surface"></div>
+        </section>
+
+        <section id="tab-tasks" class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Atlas queue</p>
+              <h2>Task Board</h2>
+              <p id="taskStats" class="subcopy">0 total · 0 running · 0 done · 0 blocked</p>
+            </div>
+            <div class="header-actions">
+              <select id="taskMode" aria-label="Task order">
+                <option value="priority">Priority order</option>
+                <option value="time">Time order</option>
+              </select>
+              <label class="toggle"><input id="taskAuto" type="checkbox"> Auto-run</label>
+              <button id="runQueueBtn" type="button">Run Queue</button>
+            </div>
+          </div>
+
+          <form id="taskForm" class="task-form workspace-card">
+            <div class="field-row">
+              <input id="taskTitle" type="text" placeholder="Task title" required>
+              <select id="taskPriority" aria-label="Priority">
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+                <option value="urgent">Urgent</option>
+                <option value="low">Low</option>
+              </select>
+              <input id="taskDue" type="datetime-local" aria-label="Due time">
+            </div>
+            <textarea id="taskDetails" rows="3" placeholder="Details for Atlas"></textarea>
+            <div class="form-actions">
+              <span id="queueState" class="muted"></span>
+              <button type="submit">Add Task</button>
+            </div>
+          </form>
+
+          <div id="taskBoard" class="kanban-board"></div>
+        </section>
+
+        <section id="tab-logs" class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Memory</p>
+              <h2>Memory</h2>
+              <p class="subcopy">Session logs, formatted previews, and editable memory files.</p>
+            </div>
+            <div class="header-actions">
+              <select id="sessionAgentSelect" aria-label="Agent sessions"></select>
+              <a id="exportAgentLink" class="download-btn" href="#">Export Agent</a>
+            </div>
+          </div>
+          <div class="memory-tabs">
+            <button class="is-active" type="button" data-memory-view="sessions">Session Logs</button>
+            <button type="button" data-memory-view="files">Memory Files</button>
+          </div>
+          <div class="logs-layout">
+            <div>
+              <div id="sessionList" class="session-list"></div>
+              <div id="memoryFileList" class="session-list is-hidden"></div>
+            </div>
+            <div>
+              <div id="sessionPreview" class="log-preview"></div>
+              <form id="memoryEditorForm" class="memory-editor is-hidden">
+                <div class="card-head">
+                  <div>
+                    <p class="eyebrow">Edit Memory</p>
+                    <h3 id="memoryEditorTitle">Memory file</h3>
+                  </div>
+                  <button type="submit">Save File</button>
+                </div>
+                <textarea id="memoryEditorText" rows="18" spellcheck="false"></textarea>
+                <p id="memoryEditorState" class="muted"></p>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section id="tab-settings" class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Configuration</p>
+              <h2>Agent Settings</h2>
+              <p class="subcopy">Backed up and validated before changes stick.</p>
+            </div>
+            <select id="settingsAgentSelect" aria-label="Settings agent"></select>
+          </div>
+          <form id="settingsForm" class="settings-grid">
+            <article class="workspace-card settings-card">
+              <div class="card-head">
+                <h3>Identity</h3>
+                <span id="settingsState" class="muted"></span>
+              </div>
+              <label>Name<input id="settingsName" type="text"></label>
+              <label>Model<input id="settingsModel" type="text"></label>
+              <label>Thinking
+                <select id="settingsThinking">
+                  <option value="">Inherited</option>
+                  <option value="low">low</option>
+                  <option value="medium">medium</option>
+                  <option value="high">high</option>
+                  <option value="xhigh">xhigh</option>
+                </select>
+              </label>
+              <label>Fast Mode
+                <select id="settingsFastMode">
+                  <option value="false">Disabled</option>
+                  <option value="true">Enabled</option>
+                </select>
+              </label>
+              <div>
+                <p class="settings-label">Skills</p>
+                <div id="settingsSkills" class="skill-checkbox-grid"></div>
+              </div>
+            </article>
+
+            <article class="workspace-card settings-card">
+              <div class="card-head"><h3>Runtime</h3></div>
+              <label>Tools JSON<textarea id="settingsTools" rows="9" spellcheck="false"></textarea></label>
+              <label>Personality<textarea id="settingsPersonality" rows="8"></textarea></label>
+              <label>Instructions<textarea id="settingsInstructions" rows="8"></textarea></label>
+              <button type="submit">Save Settings</button>
+            </article>
+          </form>
+        </section>
+      </main>
+
+      <nav class="mobile-nav" aria-label="Mobile navigation">
+        <button class="mobile-nav-btn is-active" data-tab="dashboard" type="button" aria-label="Home"><span>◫</span></button>
+        <button class="mobile-nav-btn" data-tab="chat" type="button" aria-label="Chat"><span>☰</span></button>
+        <button class="mobile-nav-btn" data-tab="swarm" type="button" aria-label="Swarm"><span>◎</span></button>
+        <button class="mobile-nav-btn" data-tab="tasks" type="button" aria-label="Kanban"><span>☑</span></button>
+        <button class="mobile-nav-btn" data-tab="settings" type="button" aria-label="Settings"><span>⚙</span></button>
+      </nav>
+
+      <div id="appSettingsModal" class="modal-layer is-hidden" role="dialog" aria-modal="true" aria-labelledby="appSettingsTitle">
+        <div class="settings-dialog">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Settings</p>
+              <h3 id="appSettingsTitle">Workspace Settings</h3>
+            </div>
+            <button id="closeAppSettingsBtn" class="hermes-icon-btn" type="button" aria-label="Close settings">×</button>
+          </div>
+          <label>Theme
+            <select id="themeSelect" aria-label="Theme">
+              <option value="claw-light">Claw Light</option>
+              <option value="hermes-dark">Hermes Dark</option>
+              <option value="bronze">Hermes Bronze</option>
+              <option value="scifi">Hermes Sci-Fi</option>
+              <option value="aurora">Aurora</option>
+              <option value="graphite">Graphite</option>
+              <option value="paper">Classic Paper</option>
+              <option value="cobalt">Slate</option>
+              <option value="system">System</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div id="searchModal" class="modal-layer is-hidden" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+        <div class="settings-dialog search-dialog">
+          <div class="card-head">
+            <div>
+              <p class="eyebrow">Search</p>
+              <h3 id="searchTitle">Search Session Logs</h3>
+            </div>
+            <button id="closeSearchBtn" class="hermes-icon-btn" type="button" aria-label="Close search">×</button>
+          </div>
+          <form id="searchForm" class="search-form">
+            <input id="searchInput" type="search" placeholder="Search session logs" autocomplete="off">
+            <button type="submit">Search</button>
+          </form>
+          <div id="searchResults" class="search-results"></div>
+        </div>
+      </div>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>
