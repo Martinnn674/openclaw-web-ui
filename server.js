@@ -92,6 +92,36 @@ function nowIso() {
   return new Date().toISOString();
 }
 
+function isLoopbackHost(host) {
+  const value = String(host || '').toLowerCase();
+  return value === 'localhost'
+    || value === '::1'
+    || value === '[::1]'
+    || value === '127.0.0.1'
+    || /^127\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(value);
+}
+
+function publicNetworkInfo() {
+  const loopback = isLoopbackHost(DEFAULT_HOST);
+  return {
+    host: DEFAULT_HOST,
+    port: DEFAULT_PORT,
+    loopback,
+    exposure: loopback ? 'loopback' : 'custom-bind'
+  };
+}
+
+function publicSecurityInfo() {
+  const loopback = isLoopbackHost(DEFAULT_HOST);
+  return {
+    localOnly: loopback,
+    authentication: 'none',
+    warning: loopback
+      ? ''
+      : 'The server is not bound to loopback. Add authentication before exposing it to a network.'
+  };
+}
+
 function json(res, status, payload) {
   const body = JSON.stringify(payload, null, 2);
   res.writeHead(status, {
@@ -2276,6 +2306,8 @@ async function handleApi(req, res, pathname, searchParams) {
       app: 'openclaw-web-ui',
       mock: MOCK,
       config: publicConfigInfo(),
+      network: publicNetworkInfo(),
+      security: publicSecurityInfo(),
       time: nowIso()
     });
   }
@@ -2508,6 +2540,8 @@ module.exports = {
   createApp,
   getAgents,
   publicConfigInfo,
+  publicNetworkInfo,
+  publicSecurityInfo,
   selectNextTask,
   atlasTaskPrompt,
   taskToSwarmCard,

@@ -10,8 +10,8 @@ const checks = [
     pattern: /[A-Za-z]:\\Users\\[A-Za-z0-9._-]+/g
   },
   {
-    name: 'WSL personal home path',
-    pattern: new RegExp('/home/' + 'martin\\b', 'gi')
+    name: 'Unix user home path',
+    pattern: /\/home\/[A-Za-z0-9._-]+/g
   },
   {
     name: 'private workspace folder',

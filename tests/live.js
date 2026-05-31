@@ -31,12 +31,15 @@ async function main() {
   assert.match(page, /claw-space-logo\.svg/);
   assert.match(page, /Agent Settings/);
   assert.match(page, /settingsFastMode/);
+  assert.match(page, /securityStatusCard/);
   assert.doesNotMatch(page, /New Session/);
 
   const health = await request('/api/health');
   assert.equal(health.ok, true);
   assert.equal(health.config.file, 'openclaw.json');
   assert.equal(health.configPath, undefined);
+  assert.equal(health.network.loopback, true);
+  assert.equal(health.security.localOnly, true);
 
   const agents = await request('/api/agents');
   const agentIds = agents.agents.map((agent) => agent.id);

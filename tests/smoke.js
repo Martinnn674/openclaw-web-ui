@@ -123,6 +123,8 @@ async function main() {
   assert.match(page, /claw-space-logo\.svg/);
   assert.match(page, /Agent Settings/);
   assert.match(page, /settingsFastMode/);
+  assert.match(page, /securityStatusCard/);
+  assert.match(page, /Local Access/);
   assert.match(page, /New Chat/);
   assert.doesNotMatch(page, /New Session/);
   assert.doesNotMatch(page, />Operations</);
@@ -134,6 +136,9 @@ async function main() {
   assert.equal(health.ok, true);
   assert.equal(health.config.file, 'openclaw.json');
   assert.equal(health.configPath, undefined);
+  assert.equal(health.network.loopback, true);
+  assert.equal(health.security.localOnly, true);
+  assert.equal(health.security.authentication, 'none');
 
   const agents = await request('/api/agents');
   assert.deepEqual(agents.agents.map((agent) => agent.id), ['main', 'coder']);

@@ -53,7 +53,9 @@ OPENCLAW_WEB_UI_MOCK=1 npm start
 - [Setup guide](docs/setup.md)
 - [Feature tour](docs/feature-tour.md)
 - [Development notes](docs/development.md)
+- [Maintainer guide](docs/maintainer-guide.md)
 - [Privacy checklist](docs/privacy-checklist.md)
+- [Roadmap](ROADMAP.md)
 - [Changelog](CHANGELOG.md)
 
 ## Safety Notes
@@ -70,7 +72,7 @@ That includes syntax checks, the tracked-file privacy audit, and the mock smoke 
 
 ## Status
 
-Early, usable, and intentionally small. The current focus is keeping local agent work easier to inspect without turning OpenClaw into a cloud service.
+Early, usable, and intentionally small. The current focus is keeping local agent work easier to inspect without turning OpenClaw into a cloud service. Maintenance work is tracked through GitHub issues, the [roadmap](ROADMAP.md), and release notes.
 
 ## Attribution
 

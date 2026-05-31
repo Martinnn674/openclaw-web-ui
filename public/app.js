@@ -61,6 +61,7 @@ const SWARM_PLAYBOOKS = [
 const state = {
   agents: [],
   dashboard: null,
+  health: null,
   selectedAgent: 'main',
   selectedSessionAgent: 'all',
   selectedSettingsAgent: 'main',
@@ -765,15 +766,18 @@ function setActiveTab(tab) {
 
 async function loadHealth() {
   try {
-    await api('/api/health');
+    const data = await api('/api/health');
+    state.health = data;
     $('#healthText').textContent = 'Online';
     $('#healthDot').classList.add('ok');
-    $('#mobileHealth').textContent = 'online';
+    $('#mobileHealth').textContent = data.security?.localOnly === false ? 'check bind' : 'online';
   } catch {
+    state.health = null;
     $('#healthText').textContent = 'Offline';
     $('#healthDot').classList.remove('ok');
     $('#mobileHealth').textContent = 'offline';
   }
+  renderSecurityStatus();
 }
 
 async function loadAgents() {
@@ -973,8 +977,52 @@ function renderDashboard() {
       <span class="pill">${sessionStatusLabel(session)}</span>
     </button>
   `).join('') : '<p class="muted">No recent sessions.</p>';
+  renderSecurityStatus();
   bindSessionOpenButtons();
   loadSidebarSessions();
+}
+
+function renderSecurityStatus() {
+  const card = $('#securityStatusCard');
+  if (!card) return;
+
+  const health = state.health;
+  if (!health) {
+    card.classList.add('is-warning');
+    card.innerHTML = `
+      <div class="card-head">
+        <div>
+          <p class="eyebrow">Local Access</p>
+          <h3>Safety Status</h3>
+        </div>
+        <span class="pill">offline</span>
+      </div>
+      <div class="security-status-list">
+        <p class="muted">Health check is unavailable.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const localOnly = health.security?.localOnly !== false;
+  const warning = health.security?.warning || '';
+  card.classList.toggle('is-warning', !localOnly);
+  card.innerHTML = `
+    <div class="card-head">
+      <div>
+        <p class="eyebrow">Local Access</p>
+        <h3>Safety Status</h3>
+      </div>
+      <span class="pill">${localOnly ? 'loopback' : 'review bind'}</span>
+    </div>
+    <div class="security-status-list">
+      <div><span>Bind</span><strong>${escapeHtml(health.network?.host || 'unknown')}:${escapeHtml(String(health.network?.port || ''))}</strong></div>
+      <div><span>Mode</span><strong>${health.mock ? 'mock' : 'live'}</strong></div>
+      <div><span>Config</span><strong>${escapeHtml(health.config?.file || 'not found')}</strong></div>
+      <div><span>Auth</span><strong>${escapeHtml(health.security?.authentication || 'none')}</strong></div>
+    </div>
+    ${warning ? `<p class="security-warning">${escapeHtml(warning)}</p>` : '<p class="muted">Loopback binding keeps this control panel local to this machine.</p>'}
+  `;
 }
 
 async function loadSidebarSessions() {

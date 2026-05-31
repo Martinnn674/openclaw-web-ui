@@ -1,13 +1,23 @@
 ---
 name: Feature request
-about: Suggest an improvement
-title: "[Feature]: "
+about: Suggest a local-first workflow improvement
+title: "Feature: "
 labels: enhancement
 assignees: ""
 ---
 
-## Problem
+## Workflow
 
-## Proposed Solution
+What local OpenClaw workflow would this improve?
 
-## Notes
+
+## Proposed Behavior
+
+
+## Alternatives
+
+
+## Boundaries
+
+- Should this stay loopback/local-first?
+- Does it read or write OpenClaw memory, sessions, config, or tasks?

@@ -11,6 +11,7 @@ Useful when:
 - You just restarted OpenClaw and want a quick health check.
 - You want to jump back into a recent session.
 - You want to see whether the app is running in mock or live mode.
+- You want to confirm the server is bound to loopback before touching local memory or session data.
 
 ## Chat
 

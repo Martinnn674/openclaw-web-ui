@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.4 - 2026-05-31
+
+- Added a dashboard local-access status panel that shows bind host, port, mock/live mode, config filename, and loopback warnings.
+- Added sanitized network and security metadata to `/api/health` without exposing absolute config paths.
+- Added maintainer guide, roadmap, issue templates, and a pull request template.
+- Generalized the privacy audit's Unix home-path check so it no longer names a local user.
+
 ## 0.1.3 - 2026-05-31
 
 - Reworked the README into a clearer project front page with a short description, quick start, safety notes, and doc links.

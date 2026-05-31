@@ -4,6 +4,8 @@ OpenClaw Web UI is designed for local loopback use. It can read OpenClaw memory,
 
 The public health endpoint intentionally reports only sanitized config metadata, not an absolute local filesystem path.
 
+The dashboard also shows the bind host, port, mock/live mode, config filename, and a warning if the server is not bound to a loopback address.
+
 ## Reporting A Vulnerability
 
 Please open a GitHub security advisory or a private maintainer contact if one is listed. Do not post tokens, private config, session logs, or screenshots with secrets in public issues.
