@@ -15,6 +15,7 @@ const DATA_DIR = process.env.OPENCLAW_WEB_UI_DATA_DIR || path.join(APP_ROOT, 'da
 const TASKS_PATH = path.join(DATA_DIR, 'tasks.json');
 const HOME = process.env.HOME || os.homedir();
 const CONFIG_PATH = process.env.OPENCLAW_CONFIG || path.join(HOME, '.openclaw', 'openclaw.json');
+const CONFIG_SOURCE = process.env.OPENCLAW_CONFIG ? 'env' : 'home';
 const OPENCLAW_HOME = path.dirname(CONFIG_PATH);
 const OPENCLAW_BIN = process.env.OPENCLAW_BIN || 'openclaw';
 const MOCK = process.env.OPENCLAW_WEB_UI_MOCK === '1';
@@ -204,6 +205,14 @@ async function writeJsonAtomic(filePath, value) {
 
 function stableHash(value) {
   return crypto.createHash('sha1').update(JSON.stringify(value)).digest('hex');
+}
+
+function publicConfigInfo() {
+  return {
+    configured: Boolean(CONFIG_PATH),
+    source: CONFIG_SOURCE,
+    file: path.basename(CONFIG_PATH)
+  };
 }
 
 function mockConfig() {
@@ -2266,7 +2275,7 @@ async function handleApi(req, res, pathname, searchParams) {
       ok: true,
       app: 'openclaw-web-ui',
       mock: MOCK,
-      configPath: CONFIG_PATH,
+      config: publicConfigInfo(),
       time: nowIso()
     });
   }
@@ -2498,6 +2507,7 @@ if (require.main === module) {
 module.exports = {
   createApp,
   getAgents,
+  publicConfigInfo,
   selectNextTask,
   atlasTaskPrompt,
   taskToSwarmCard,

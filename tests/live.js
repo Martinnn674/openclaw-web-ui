@@ -35,6 +35,8 @@ async function main() {
 
   const health = await request('/api/health');
   assert.equal(health.ok, true);
+  assert.equal(health.config.file, 'openclaw.json');
+  assert.equal(health.configPath, undefined);
 
   const agents = await request('/api/agents');
   const agentIds = agents.agents.map((agent) => agent.id);

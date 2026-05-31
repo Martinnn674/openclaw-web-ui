@@ -2,6 +2,8 @@
 
 OpenClaw Web UI is designed for local loopback use. It can read OpenClaw memory, sessions, and config-adjacent data from the configured OpenClaw home.
 
+The public health endpoint intentionally reports only sanitized config metadata, not an absolute local filesystem path.
+
 ## Reporting A Vulnerability
 
 Please open a GitHub security advisory or a private maintainer contact if one is listed. Do not post tokens, private config, session logs, or screenshots with secrets in public issues.
