@@ -1,8 +1,8 @@
-# OpenClaw Web UI
+# Claw Space
 
-[![CI](https://github.com/Martinnn674/openclaw-web-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/Martinnn674/openclaw-web-ui/actions/workflows/ci.yml)
+[![CI](https://github.com/Martinnn674/claw-space/actions/workflows/ci.yml/badge.svg)](https://github.com/Martinnn674/claw-space/actions/workflows/ci.yml)
 
-OpenClaw Web UI is a small local control panel for an OpenClaw workspace. It runs on your machine, talks to the `openclaw` CLI, and gives you a browser view for chat, tasks, sessions, memory files, agent settings, and swarm-style work planning.
+Claw Space is a local mission-control UI for an OpenClaw workspace. It runs on your machine, talks to the `openclaw` CLI, and gives you a browser view for chat, tasks, sessions, memory files, agent settings, and swarm-style work planning.
 
 It is built for loopback use on a developer machine. It is not a hosted dashboard, and it should not be exposed to the public internet without adding your own authentication layer.
 
@@ -35,8 +35,8 @@ Requirements:
 - An OpenClaw config, usually `~/.openclaw/openclaw.json`.
 
 ```bash
-git clone https://github.com/Martinnn674/openclaw-web-ui.git
-cd openclaw-web-ui
+git clone https://github.com/Martinnn674/claw-space.git
+cd claw-space
 npm start
 ```
 

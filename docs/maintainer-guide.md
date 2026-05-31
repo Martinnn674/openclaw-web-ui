@@ -31,7 +31,7 @@ The live test should only be run against a workspace where temporary task creati
 2. Add a top entry to `CHANGELOG.md`.
 3. Run `npm run check`.
 4. Push `main`.
-5. Create a GitHub release named `OpenClaw Web UI vX.Y.Z`.
+5. Create a GitHub release named `Claw Space vX.Y.Z`.
 6. Check the release page for accidental local paths, tokens, or private screenshots.
 
 ## Privacy Checks

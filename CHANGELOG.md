@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.6 - 2026-05-31
+
+- Renamed the project to Claw Space and updated package, repository, README, and documentation references.
+- Updated public app metadata so health responses and task prompts use the Claw Space name.
+
 ## 0.1.5 - 2026-05-31
 
 - Added a screenshot showcase built from mock data so the project page shows the dashboard, swarm board, and mobile layout without exposing local files.

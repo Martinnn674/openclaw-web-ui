@@ -1,6 +1,6 @@
 # Security Policy
 
-OpenClaw Web UI is designed for local loopback use. It can read OpenClaw memory, sessions, and config-adjacent data from the configured OpenClaw home.
+Claw Space is designed for local loopback use. It can read OpenClaw memory, sessions, and config-adjacent data from the configured OpenClaw home.
 
 The public health endpoint intentionally reports only sanitized config metadata, not an absolute local filesystem path.
 

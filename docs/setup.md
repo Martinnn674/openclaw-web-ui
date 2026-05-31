@@ -20,8 +20,8 @@ openclaw config validate
 ## Install
 
 ```bash
-git clone https://github.com/Martinnn674/openclaw-web-ui.git
-cd openclaw-web-ui
+git clone https://github.com/Martinnn674/claw-space.git
+cd claw-space
 ```
 
 There are no npm package dependencies at the moment. The app uses Node's built-in HTTP, filesystem, crypto, and child process modules.
@@ -65,7 +65,7 @@ What they do:
 If OpenClaw is installed inside WSL, run the UI from WSL too:
 
 ```bash
-cd /path/to/openclaw-web-ui
+cd /path/to/claw-space
 OPENCLAW_BIN=/path/to/openclaw npm start
 ```
 

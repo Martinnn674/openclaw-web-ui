@@ -1623,7 +1623,7 @@ async function walkMemoryFiles(root, workspace, out) {
     return;
   }
   for (const entry of entries) {
-    if (entry.name === 'node_modules' || entry.name === '.git' || entry.name === 'openclaw-web-ui') continue;
+    if (entry.name === 'node_modules' || entry.name === '.git' || entry.name === 'openclaw-web-ui' || entry.name === 'claw-space') continue;
     const target = path.join(root, entry.name);
     if (entry.isDirectory()) {
       await walkMemoryFiles(target, workspace, out);
@@ -1886,7 +1886,7 @@ async function swarmRuntime() {
       logPath: tail.logPath,
       terminalKind: tail.logPath ? 'log-tail' : 'none',
       lastSessionStartedAt: worker.lastInteractionAt || null,
-      source: 'openclaw-web-ui',
+      source: 'claw-space',
       artifacts: [],
       previews: []
     });
@@ -2107,7 +2107,7 @@ async function swarmKanban() {
       label: 'OpenClaw local task store',
       detected: true,
       writable: true,
-      details: 'Backed by openclaw-web-ui/data/tasks.json',
+      details: 'Backed by claw-space/data/tasks.json',
       path: TASKS_PATH
     }
   };
@@ -2303,7 +2303,7 @@ async function handleApi(req, res, pathname, searchParams) {
   if (req.method === 'GET' && pathname === '/api/health') {
     return json(res, 200, {
       ok: true,
-      app: 'openclaw-web-ui',
+      app: 'claw-space',
       mock: MOCK,
       config: publicConfigInfo(),
       network: publicNetworkInfo(),
@@ -2516,7 +2516,7 @@ async function start() {
   app.listen(DEFAULT_PORT, DEFAULT_HOST, () => {
     const address = app.address();
     const port = typeof address === 'object' ? address.port : DEFAULT_PORT;
-    process.stdout.write(`OpenClaw Web UI listening on http://${DEFAULT_HOST}:${port}\n`);
+    process.stdout.write(`Claw Space listening on http://${DEFAULT_HOST}:${port}\n`);
   });
 
   setInterval(async () => {

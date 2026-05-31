@@ -93,7 +93,7 @@ async function main() {
   const kanbanCard = await request('/api/swarm-kanban', {
     method: 'POST',
     body: {
-      title: 'OpenClaw Web UI live swarm card route check',
+      title: 'Claw Space live swarm card route check',
       spec: 'Temporary card created by live test.',
       assignedWorker: liveAgentId,
       status: 'ready'
@@ -111,7 +111,7 @@ async function main() {
     const decomposed = await request('/api/swarm-decompose', {
       method: 'POST',
       body: {
-        goal: 'OpenClaw Web UI live decompose route check',
+        goal: 'Claw Space live decompose route check',
         workerIds: [workerIds[0]]
       }
     });
@@ -134,7 +134,7 @@ async function main() {
     method: 'POST',
     body: {
       agentId: liveAgentId,
-      message: 'OpenClaw Web UI live route check. Reply exactly: web-ui-live-ready'
+      message: 'Claw Space live route check. Reply exactly: web-ui-live-ready'
     }
   });
   assert.match(chat.text, /web-ui-live-ready/);
@@ -145,7 +145,7 @@ async function main() {
   const created = await request('/api/tasks', {
     method: 'POST',
     body: {
-      title: 'OpenClaw Web UI live task route check',
+      title: 'Claw Space live task route check',
       details: 'Reply with a short status containing the phrase web-ui-task-ready. Do not do anything external.',
       priority: 'low'
     }

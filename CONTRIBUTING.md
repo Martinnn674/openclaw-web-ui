@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping improve OpenClaw Web UI.
+Thanks for helping improve Claw Space.
 
 ## Local Setup
 

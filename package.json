@@ -1,16 +1,16 @@
 {
-  "name": "openclaw-web-ui",
-  "version": "0.1.5",
-  "description": "Local-first web UI for OpenClaw agent chat, memory, tasks, and swarm workflows.",
+  "name": "claw-space",
+  "version": "0.1.6",
+  "description": "Local-first mission control for OpenClaw agent chat, memory, tasks, and swarm workflows.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Martinnn674/openclaw-web-ui.git"
+    "url": "git+https://github.com/Martinnn674/claw-space.git"
   },
   "bugs": {
-    "url": "https://github.com/Martinnn674/openclaw-web-ui/issues"
+    "url": "https://github.com/Martinnn674/claw-space/issues"
   },
-  "homepage": "https://github.com/Martinnn674/openclaw-web-ui#readme",
+  "homepage": "https://github.com/Martinnn674/claw-space#readme",
   "keywords": [
     "openclaw",
     "agents",

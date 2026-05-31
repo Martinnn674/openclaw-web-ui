@@ -1,6 +1,6 @@
 # Roadmap
 
-OpenClaw Web UI is early and intentionally local-first. The project is useful today for inspecting an OpenClaw workspace, but the maintainer focus is still stability, privacy, and predictable local workflows before larger integrations.
+Claw Space is early and intentionally local-first. The project is useful today for inspecting an OpenClaw workspace, but the maintainer focus is still stability, privacy, and predictable local workflows before larger integrations.
 
 ## Current Focus
 

@@ -1,6 +1,6 @@
 # Feature Tour
 
-OpenClaw Web UI is meant to answer a simple question: what is my local agent workspace doing, and what can I safely ask it to do next?
+Claw Space is meant to answer a simple question: what is my local agent workspace doing, and what can I safely ask it to do next?
 
 ## Dashboard
 
