@@ -1,6 +1,6 @@
 {
   "name": "openclaw-web-ui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Local-first web UI for OpenClaw agent chat, memory, tasks, and swarm workflows.",
   "license": "MIT",
   "repository": {
@@ -20,6 +20,8 @@
     "maintainers"
   ],
   "scripts": {
+    "audit:privacy": "node scripts/privacy-audit.js",
+    "check": "node --check server.js && node --check public/app.js && npm run audit:privacy && npm test",
     "start": "node server.js",
     "test": "node tests/smoke.js",
     "test:live": "node tests/live.js"

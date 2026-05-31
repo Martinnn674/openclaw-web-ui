@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2 - 2026-05-31
+
+- Added `npm run audit:privacy` to scan tracked files for local path leaks, private source-pack filenames, and token-shaped secrets.
+- Added the privacy audit to CI.
+- Documented the privacy audit in the README.
+
 ## 0.1.1 - 2026-05-31
 
 - Redacted absolute local config paths from `/api/health`.

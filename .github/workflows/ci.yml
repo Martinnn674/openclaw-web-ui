@@ -22,5 +22,7 @@ jobs:
         run: |
           node --check server.js
           node --check public/app.js
+      - name: Privacy audit
+        run: npm run audit:privacy
       - name: Smoke test
         run: npm test

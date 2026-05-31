@@ -55,10 +55,19 @@ Environment variables:
 ```bash
 node --check server.js
 node --check public/app.js
+npm run audit:privacy
 npm test
 ```
 
 The smoke test runs in mock mode against a temporary OpenClaw home and does not call real agents.
+
+Privacy audit:
+
+```bash
+npm run audit:privacy
+```
+
+The audit scans tracked files for common local path leaks, known private source-pack filenames, and token-shaped secrets before release.
 
 Live Gateway check:
 
