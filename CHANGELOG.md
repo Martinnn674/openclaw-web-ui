@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.3 - 2026-05-31
+
+- Reworked the README into a clearer project front page with a short description, quick start, safety notes, and doc links.
+- Added a setup guide covering local, WSL, mock-mode, live-test, and troubleshooting flows.
+- Added a feature tour for dashboard, chat, task board, memory/session, settings, swarm, and mock mode.
+- Added development notes with project structure, local checks, live checks, release checklist, and design boundaries.
+
 ## 0.1.2 - 2026-05-31
 
 - Added `npm run audit:privacy` to scan tracked files for local path leaks, private source-pack filenames, and token-shaped secrets.

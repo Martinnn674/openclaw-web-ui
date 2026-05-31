@@ -1,87 +1,76 @@
 # OpenClaw Web UI
 
-Local-first web UI for OpenClaw agent chat, task queueing, session export, memory files, agent settings, and a swarm-style control surface.
+[![CI](https://github.com/Martinnn674/openclaw-web-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/Martinnn674/openclaw-web-ui/actions/workflows/ci.yml)
 
-The app is a small Node/static server that talks to the local `openclaw` CLI and reads from the configured OpenClaw workspace. It is designed for loopback use on a developer machine, not for public internet exposure.
+OpenClaw Web UI is a small local control panel for an OpenClaw workspace. It runs on your machine, talks to the `openclaw` CLI, and gives you a browser view for chat, tasks, sessions, memory files, agent settings, and swarm-style work planning.
 
-## Features
+It is built for loopback use on a developer machine. It is not a hosted dashboard, and it should not be exposed to the public internet without adding your own authentication layer.
 
-- Dashboard with agent health, recent sessions, memory activity, and quick actions.
-- Chat surface with agent selection, streaming replies, and file attachments.
-- Swarm surface for decomposing missions into worker assignments.
-- Kanban task board backed by local JSON runtime state.
-- Session log preview/export and editable memory files.
-- Agent settings editor with validation-oriented server routes.
+## What You Get
 
-## Requirements
+- A dashboard for agent health, recent sessions, task counts, and workspace activity.
+- Agent chat with streaming output, session continuity, and file attachments.
+- A Kanban board for local task queueing and one-click task runs.
+- Session log browsing, previews, exports, and memory file editing.
+- Agent settings views for identity, model, thinking level, fast mode, skills, and tools.
+- A swarm board for splitting a goal into worker lanes and tracking each assignment.
+- Mock mode for UI development without calling real agents.
+
+## Quick Start
+
+Requirements:
 
 - Node.js 20 or newer.
-- OpenClaw installed and available as `openclaw` on `PATH`.
-- An OpenClaw config, usually at `~/.openclaw/openclaw.json`.
-
-## Run
+- OpenClaw installed locally.
+- An OpenClaw config, usually `~/.openclaw/openclaw.json`.
 
 ```bash
+git clone https://github.com/Martinnn674/openclaw-web-ui.git
+cd openclaw-web-ui
 npm start
 ```
 
-The server binds to `127.0.0.1:8787` by default.
-
-Open the UI:
+Open:
 
 ```text
 http://127.0.0.1:8787
 ```
 
-Open the swarm surface directly:
-
-```text
-http://127.0.0.1:8787/?tab=swarm
-```
-
-## Configuration
-
-Environment variables:
-
-- `OPENCLAW_CONFIG`: path to `openclaw.json`.
-- `OPENCLAW_BIN`: OpenClaw executable name or path. Defaults to `openclaw`.
-- `OPENCLAW_WEB_UI_HOST`: bind host. Defaults to `127.0.0.1`.
-- `OPENCLAW_WEB_UI_PORT`: bind port. Defaults to `8787`.
-- `OPENCLAW_WEB_UI_DATA_DIR`: runtime data directory. Defaults to `./data`.
-- `OPENCLAW_WEB_UI_MOCK=1`: run mock mode for tests and UI development.
-
-## Test
+If `openclaw` is not on your `PATH`, point the UI at it:
 
 ```bash
-node --check server.js
-node --check public/app.js
-npm run audit:privacy
-npm test
+OPENCLAW_BIN=/path/to/openclaw npm start
 ```
 
-The smoke test runs in mock mode against a temporary OpenClaw home and does not call real agents.
-
-Privacy audit:
+For UI work without a real OpenClaw install:
 
 ```bash
-npm run audit:privacy
+OPENCLAW_WEB_UI_MOCK=1 npm start
 ```
 
-The audit scans tracked files for common local path leaks, known private source-pack filenames, and token-shaped secrets before release.
+## Docs
 
-Live Gateway check:
+- [Setup guide](docs/setup.md)
+- [Feature tour](docs/feature-tour.md)
+- [Development notes](docs/development.md)
+- [Privacy checklist](docs/privacy-checklist.md)
+- [Changelog](CHANGELOG.md)
+
+## Safety Notes
+
+The app reads local OpenClaw memory, session logs, and config-adjacent data. Keep it on `127.0.0.1` unless you know exactly what you are doing.
+
+Before releases, run:
 
 ```bash
-npm run test:live
+npm run check
 ```
 
-The live test uses your real local OpenClaw environment and may create temporary sessions/tasks that it cleans up.
+That includes syntax checks, the tracked-file privacy audit, and the mock smoke test.
 
-## Security Notes
+## Status
 
-This app can read local OpenClaw memory, sessions, and config-adjacent data. Keep it bound to loopback unless you add your own authentication and transport security.
-
-Do not commit `data/tasks.json`, screenshots with private data, OpenClaw config files, or session exports.
+Early, usable, and intentionally small. The current focus is keeping local agent work easier to inspect without turning OpenClaw into a cloud service.
 
 ## Attribution
 
