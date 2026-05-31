@@ -1,0 +1,24 @@
+name: Scheduled Maintenance Check
+
+on:
+  schedule:
+    - cron: "12 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Daily repository health check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Repository hygiene
+        run: git diff --check
+      - name: Full project check
+        run: npm run check
