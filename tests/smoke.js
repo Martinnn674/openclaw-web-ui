@@ -126,11 +126,13 @@ async function main() {
   assert.match(page, /securityStatusCard/);
   assert.match(page, /Local Access/);
   assert.match(page, /New Chat/);
+  assert.match(page, /mobile-chat-back/);
   assert.doesNotMatch(page, /New Session/);
   assert.doesNotMatch(page, />Operations</);
   assert.doesNotMatch(page, />MCP</);
   assert.match(page, /Knowledge/);
   assert.match(page, /Task Board/);
+  assert.match(page, /aria-label="Memory"/);
 
   const health = await request('/api/health');
   assert.equal(health.ok, true);
@@ -225,6 +227,7 @@ async function main() {
   });
   assert.equal(created.task.status, 'pending');
   assert.equal(created.task.column, 'backlog');
+  assert.equal(created.task.dueAt, '');
 
   const moved = await request(`/api/tasks/${created.task.id}`, { method: 'PATCH', body: { column: 'todo' } });
   assert.equal(moved.task.column, 'todo');

@@ -22,6 +22,7 @@ The chat tab sends messages through the local `openclaw agent` route. It support
 - Session continuity.
 - File attachments.
 - Raw run details for debugging.
+- Mobile back navigation for returning to the dashboard.
 
 The UI keeps external actions explicit. It should show what is being sent instead of hiding agent work behind a single magic button.
 
@@ -51,6 +52,7 @@ It supports:
 - Agent-level exports.
 - Memory file browsing.
 - Editing allowed memory files from the browser.
+- Bottom-nav access on mobile.
 
 This is one of the sensitive parts of the app. Session logs and memory files can contain private data, so keep the server on loopback.
 

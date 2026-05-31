@@ -16,6 +16,16 @@ It is built for loopback use on a developer machine. It is not a hosted dashboar
 - A swarm board for splitting a goal into worker lanes and tracking each assignment.
 - Mock mode for UI development without calling real agents.
 
+## Showcase
+
+![Dashboard showing agent roster, local access status, recent sessions, and task metrics](public/assets/showcase-dashboard.png)
+
+The dashboard keeps the important local state in one place: configured agents, recent session logs, task counts, and whether the server is running in loopback-safe mode.
+
+![Swarm board showing mission controls, worker lanes, assignments, and runtime panels](public/assets/showcase-swarm.png)
+
+The swarm board is for breaking a larger goal into worker lanes, reviewing assignments, and keeping runtime output visible while work moves through the board.
+
 ## Quick Start
 
 Requirements:
@@ -51,6 +61,7 @@ OPENCLAW_WEB_UI_MOCK=1 npm start
 ## Docs
 
 - [Setup guide](docs/setup.md)
+- [Showcase](docs/showcase.md)
 - [Feature tour](docs/feature-tour.md)
 - [Development notes](docs/development.md)
 - [Maintainer guide](docs/maintainer-guide.md)

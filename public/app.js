@@ -1859,6 +1859,7 @@ function renderTasks() {
 function renderTaskCard(task) {
   const col = task.column || columnFromStatus(task.status);
   const assignee = task.assignee || task.reviewer || task.createdBy || 'Atlas';
+  const dueText = task.dueAt ? `Due ${formatDate(task.dueAt)}` : 'No due date';
   return `
     <article class="task-item" draggable="true" data-task-id="${task.id}">
       <div class="task-top">
@@ -1873,7 +1874,7 @@ function renderTaskCard(task) {
         <span>${escapeHtml(taskLaneLabel(col))}</span>
         <span>${escapeHtml(assignee)}</span>
       </div>
-      <div class="muted">Due ${formatDate(task.dueAt || task.createdAt)}</div>
+      <div class="muted">${escapeHtml(dueText)}</div>
       ${task.result ? `<div class="task-result">${escapeHtml(shortText(task.result, 260))}</div>` : ''}
       ${task.error ? `<div class="task-result">${escapeHtml(task.error)}</div>` : ''}
       <div class="task-actions">

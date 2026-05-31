@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.5 - 2026-05-31
+
+- Added a screenshot showcase built from mock data so the project page shows the dashboard, swarm board, and mobile layout without exposing local files.
+- Fixed mobile navigation so the Chat tab has a visible Back path and the Memory view is reachable from the bottom nav.
+- Changed task cards without due dates to show "No due date" instead of reusing the creation timestamp as a due date.
+- Ran a desktop and mobile visual/function audit across dashboard, chat, swarm, tasks, memory, and settings.
+
 ## 0.1.4 - 2026-05-31
 
 - Added a dashboard local-access status panel that shows bind host, port, mock/live mode, config filename, and loopback warnings.
