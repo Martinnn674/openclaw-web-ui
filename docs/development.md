@@ -27,6 +27,13 @@ node --check server.js
 node --check public/app.js
 npm run audit:privacy
 npm test
+npm run test:browser
+```
+
+The browser smoke check uses Playwright with Chromium. After a fresh install, run:
+
+```bash
+npx playwright install chromium
 ```
 
 ## Live Check

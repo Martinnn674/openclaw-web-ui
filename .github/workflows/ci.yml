@@ -18,11 +18,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Syntax check
-        run: |
-          node --check server.js
-          node --check public/app.js
-      - name: Privacy audit
-        run: npm run audit:privacy
-      - name: Smoke test
-        run: npm test
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Full check
+        run: npm run check
