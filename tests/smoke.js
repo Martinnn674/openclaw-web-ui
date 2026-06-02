@@ -247,6 +247,10 @@ async function main() {
   const swarmRoster = await request('/api/swarm-roster');
   assert.equal(swarmRoster.roster.workers[0].id, 'coder');
 
+  const swarmPlaybooks = await request('/api/swarm-playbooks');
+  assert.ok(Array.isArray(swarmPlaybooks.playbooks));
+  assert.ok(swarmPlaybooks.playbooks.some((playbook) => playbook.id === 'build'));
+
   const swarmRuntime = await request('/api/swarm-runtime');
   assert.equal(swarmRuntime.entries[0].workerId, 'coder');
 
@@ -286,6 +290,10 @@ async function main() {
   const routedCard = await request(`/api/tasks/${decompose.cards[0].id}/run`, { method: 'POST' });
   assert.equal(routedCard.task.status, 'done');
   assert.match(routedCard.task.result, /\[coder\]/);
+
+  await request(`/api/tasks/${created.task.id}`, { method: 'DELETE' });
+  const tasksAfterDelete = await request('/api/tasks');
+  assert.ok(!tasksAfterDelete.tasks.some((task) => task.id === created.task.id));
 
   const dryDispatch = await request('/api/swarm-dispatch', {
     method: 'POST',
