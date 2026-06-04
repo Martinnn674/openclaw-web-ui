@@ -22,9 +22,10 @@ openclaw config validate
 ```bash
 git clone https://github.com/Martinnn674/claw-space.git
 cd claw-space
+npm install
 ```
 
-There are no npm package dependencies at the moment. The app uses Node's built-in HTTP, filesystem, crypto, and child process modules.
+The app uses Node's built-in HTTP, filesystem, crypto, and child process modules at runtime. It also installs Playwright as a dev dependency for the standard browser smoke check.
 
 ## Run
 
@@ -39,6 +40,12 @@ http://127.0.0.1:8787
 ```
 
 The default bind address is loopback only.
+
+If you plan to run the full local checks on a fresh machine, install the Playwright browser once:
+
+```bash
+npx playwright install chromium
+```
 
 ## Common Environment Variables
 

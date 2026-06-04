@@ -37,6 +37,7 @@ Requirements:
 ```bash
 git clone https://github.com/Martinnn674/claw-space.git
 cd claw-space
+npm install
 npm start
 ```
 
@@ -79,7 +80,7 @@ Before releases, run:
 npm run check
 ```
 
-That includes syntax checks, the tracked-file privacy audit, and the mock smoke test.
+That includes syntax checks, the tracked-file privacy audit, the mock smoke test, and the browser smoke test.
 
 ## Status
 
