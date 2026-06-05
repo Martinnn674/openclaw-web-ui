@@ -237,6 +237,17 @@ function stableHash(value) {
   return crypto.createHash('sha1').update(JSON.stringify(value)).digest('hex');
 }
 
+function timeValue(value) {
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  if (typeof value === 'string' && value.trim()) {
+    const numeric = Number(value);
+    if (Number.isFinite(numeric)) return numeric;
+    const parsed = Date.parse(value);
+    if (Number.isFinite(parsed)) return parsed;
+  }
+  return 0;
+}
+
 function publicConfigInfo() {
   return {
     configured: Boolean(CONFIG_PATH),
@@ -770,7 +781,7 @@ async function listSessions(agentId) {
 
   return sessions
     .filter((session) => session.fileExists)
-    .sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+    .sort((a, b) => timeValue(b.updatedAt) - timeValue(a.updatedAt));
 }
 
 async function listAllSessions() {
@@ -789,7 +800,7 @@ async function allSessionsFlat() {
     ...session,
     agentId: group.agentId,
     agentName: group.agentName
-  }))).sort((a, b) => (b.startedAt || b.updatedAt || 0) - (a.startedAt || a.updatedAt || 0));
+  }))).sort((a, b) => timeValue(b.startedAt || b.updatedAt) - timeValue(a.startedAt || a.updatedAt));
 }
 
 async function exportAgentSessions(agentId) {
@@ -1393,7 +1404,7 @@ async function dashboardSummary() {
     sessions: {
       total: sessions.length,
       downloadable: sessions.filter((session) => session.fileExists).length,
-      recent: sessions.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0)).slice(0, 6)
+      recent: sessions.sort((a, b) => timeValue(b.updatedAt) - timeValue(a.updatedAt)).slice(0, 6)
     }
   };
 }

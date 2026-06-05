@@ -223,10 +223,21 @@ function shortText(value, max = 140) {
   return text.length > max ? `${text.slice(0, max - 1)}…` : text;
 }
 
+function timeValue(value) {
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  if (typeof value === 'string' && value.trim()) {
+    const numeric = Number(value);
+    if (Number.isFinite(numeric)) return numeric;
+    const parsed = Date.parse(value);
+    if (Number.isFinite(parsed)) return parsed;
+  }
+  return 0;
+}
+
 function sortByRecent(items, primary = 'updatedAt') {
   return [...items].sort((a, b) => {
-    const left = Number(b[primary] || b.startedAt || b.updatedAt || 0);
-    const right = Number(a[primary] || a.startedAt || a.updatedAt || 0);
+    const left = timeValue(b[primary] || b.startedAt || b.updatedAt);
+    const right = timeValue(a[primary] || a.startedAt || a.updatedAt);
     return left - right || String(a.path || a.sessionId || '').localeCompare(String(b.path || b.sessionId || ''));
   });
 }

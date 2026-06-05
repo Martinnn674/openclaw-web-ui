@@ -62,19 +62,27 @@ async function main() {
   await fs.writeFile(path.join(sessionsDir, 'sessions.json'), JSON.stringify({
     'agent:coder:main': {
       sessionId: 'sess1',
-      updatedAt: Date.now(),
+      updatedAt: '2026-01-04T00:00:00.000Z',
       model: 'gpt-5.5',
       modelProvider: 'openai-codex',
       totalTokens: 42
     },
+    'agent:coder:iso-newer': {
+      sessionId: 'iso-newer',
+      updatedAt: '2026-01-05T00:00:00.000Z',
+      model: 'gpt-5.5',
+      modelProvider: 'openai-codex',
+      totalTokens: 64
+    },
     'agent:coder:missing': {
       sessionId: 'missing-log',
-      updatedAt: Date.now() - 1000,
+      updatedAt: '2026-01-01T00:00:00.000Z',
       model: 'gpt-5.5',
       modelProvider: 'openai-codex'
     }
   }, null, 2), 'utf8');
   await fs.writeFile(path.join(sessionsDir, 'sess1.jsonl'), '{"role":"user","text":"hello smoke-search-marker"}\n', 'utf8');
+  await fs.writeFile(path.join(sessionsDir, 'iso-newer.jsonl'), '{"role":"assistant","text":"newer session"}\n', 'utf8');
   const orphanSessionPath = path.join(sessionsDir, 'orphan-log.jsonl');
   await fs.writeFile(orphanSessionPath, [
     JSON.stringify({ type: 'session', timestamp: '2026-01-01T00:00:00.000Z', cwd: workspace }),
@@ -161,7 +169,7 @@ async function main() {
   assert.match(streamText, /\[coder\] stream ping/);
 
   const sessions = await request('/api/sessions?agent=coder');
-  assert.equal(sessions.sessions[0].sessionId, 'sess1');
+  assert.equal(sessions.sessions[0].sessionId, 'iso-newer');
   assert.ok(sessions.sessions.some((session) => (
     session.sessionId === 'orphan-log'
       && session.registered === false
@@ -171,6 +179,7 @@ async function main() {
 
   const allSessions = await request('/api/sessions/all');
   assert.equal(allSessions.sessions[0].agentId, 'coder');
+  assert.equal(allSessions.sessions[0].sessionId, 'iso-newer');
 
   const preview = await request('/api/sessions/coder/sess1/preview');
   assert.match(preview.lines.join('\n'), /hello/);
@@ -219,7 +228,7 @@ async function main() {
 
   const exported = await request('/api/sessions/coder/export');
   assert.equal(exported.agentId, 'coder');
-  assert.match(exported.sessions[0].log, /hello/);
+  assert.match(exported.sessions.find((session) => session.sessionId === 'sess1').log, /hello/);
 
   const created = await request('/api/tasks', {
     method: 'POST',
@@ -238,8 +247,9 @@ async function main() {
   assert.equal(queue.task.status, 'done');
   assert.equal(queue.task.column, 'done');
 
-	  const dashboard = await request('/api/dashboard');
-	  assert.equal(dashboard.agents.total, 2);
+  const dashboard = await request('/api/dashboard');
+  assert.equal(dashboard.agents.total, 2);
+  assert.equal(dashboard.sessions.recent[0].sessionId, 'iso-newer');
 
   const swarmHealth = await request('/api/swarm-health');
   assert.equal(swarmHealth.summary.totalWorkers, 1);
